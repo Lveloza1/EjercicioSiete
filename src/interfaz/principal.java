@@ -5,6 +5,8 @@
  */
 package interfaz;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USUARIO
@@ -31,7 +33,7 @@ public class principal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtTotalBono = new javax.swing.JTextField();
-        txtAños = new javax.swing.JTextField();
+        txtAnos = new javax.swing.JTextField();
         cmdCalcular = new javax.swing.JButton();
         cmdBorrar = new javax.swing.JButton();
 
@@ -52,16 +54,82 @@ public class principal extends javax.swing.JFrame {
 
         txtTotalBono.setEditable(false);
         getContentPane().add(txtTotalBono, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 90, 30));
-        getContentPane().add(txtAños, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 90, 30));
+
+        txtAnos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAnosKeyTyped(evt);
+            }
+        });
+        getContentPane().add(txtAnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 90, 30));
 
         cmdCalcular.setText("Calcular Valor");
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
         getContentPane().add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 110, 30));
 
         cmdBorrar.setText("Limpiar");
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
         getContentPane().add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 80, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+int anos;
+double resta, ano1;
+String bono;
+
+if(txtAnos.getText().trim().isEmpty()){
+        JOptionPane.showMessageDialog(this, "Digite el total de años ","Error", JOptionPane.ERROR_MESSAGE);  
+        txtAnos.requestFocusInWindow(); 
+         txtAnos.selectAll();    
+     }
+
+
+else{
+     
+ anos=Integer.parseInt(txtAnos.getText());
+ 
+  if (anos == 0){
+      JOptionPane.showMessageDialog(this, "No hay pago","error", JOptionPane.ERROR_MESSAGE);  
+        txtAnos.requestFocusInWindow();
+        txtAnos.selectAll();
+     }
+ resta=(anos-1);
+ ano1=(resta*120000)+100000;   
+ 
+ bono=String.valueOf(ano1);
+    txtTotalBono.setText (bono); 
+ 
+}
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void txtAnosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnosKeyTyped
+char c=evt.getKeyChar(); 
+       
+          if(!Character.isDigit(c)) { 
+              getToolkit().beep();    
+              evt.consume();
+              
+          }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnosKeyTyped
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+
+     txtAnos.setText("");
+     txtTotalBono.setText("");
+     txtAnos.requestFocusInWindow();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmdBorrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,7 +172,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtAños;
+    private javax.swing.JTextField txtAnos;
     private javax.swing.JTextField txtTotalBono;
     // End of variables declaration//GEN-END:variables
 }
